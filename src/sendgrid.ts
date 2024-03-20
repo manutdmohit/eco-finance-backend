@@ -12,9 +12,7 @@ export const sendEmail = async (to: string, subject: string, data: any) => {
   let htmlContent: any;
 
   if (data.type === 'buy-home') {
-    htmlContent = `
-
-  <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
+    htmlContent = `<div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
     <h1 style="color: #333; text-align: center;">Mortgage Application Details</h1>
     <div style="background-color: #f9f9f9; padding: 20px; border-radius: 10px; position: relative;">
       <div style="background-image: url('https://res.cloudinary.com/manutdmohit/image/upload/ECO_FINANCE_LOGO_ryqruv.png'); background-size: contain; background-repeat: no-repeat; position: absolute; top: 20px; right: 20px; width: 150px; height: 150px; margin:auto;"></div>
@@ -44,9 +42,7 @@ export const sendEmail = async (to: string, subject: string, data: any) => {
   </div>
 `;
   } else if (data.type === 'refinance') {
-    htmlContent = `
-
-  <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
+    htmlContent = `<div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
     <h1 style="color: #333; text-align: center;">Mortgage Application Details</h1>
     <div style="background-color: #f9f9f9; padding: 20px; border-radius: 10px; position: relative;">
       <div style="background-image: url('https://res.cloudinary.com/manutdmohit/image/upload/ECO_FINANCE_LOGO_ryqruv.png'); background-size: contain; background-repeat: no-repeat; position: absolute; top: 20px; right: 20px; width: 150px; height: 150px; margin:auto;"></div>
@@ -56,7 +52,7 @@ export const sendEmail = async (to: string, subject: string, data: any) => {
       <p>Loan Amount: $${data.loanAmount}</p>
       <p>Rate: ${data.rate ? data.rate + '%' : 'skipped'}</p>
       <p>Rate Type: ${data.selectedOption}</p>
-      <p>Expiry Date: ${data.expiryDate}</p>
+      <p>Expiry Date: ${data.expiryDate ? data.expiryDate : 'skipped'}</p>
       <p>Property Use: ${data.purpose}</p>
       <p>Choosing a Lender: ${
         data.choosingALender ? data.choosingALender : 'skipped'
@@ -75,51 +71,6 @@ export const sendEmail = async (to: string, subject: string, data: any) => {
   </div>
 `;
   }
-
-  const {
-    type,
-    purchaseAmount,
-    depositAmount,
-    buyingSituation,
-    firstHomeBuyer,
-    propertyStatus,
-    propertyUse,
-    choosingALender,
-    creditHistory,
-    name,
-    email,
-    phone,
-    address,
-  } = data;
-
-  //   const htmlContent = `
-
-  //   <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
-  //     <h1 style="color: #333; text-align: center;">Mortgage Application Details</h1>
-  //     <div style="background-color: #f9f9f9; padding: 20px; border-radius: 10px; position: relative;">
-  //       <div style="background-image: url('https://res.cloudinary.com/manutdmohit/image/upload/ECO_FINANCE_LOGO_ryqruv.png'); background-size: contain; background-repeat: no-repeat; position: absolute; top: 20px; right: 20px; width: 150px; height: 150px; margin:auto;"></div>
-
-  //       <h2 style="color: #666;">Loan Details</h2>
-  //       <p>Type: ${type}</p>
-  //       <p>Purchase Amount: $${purchaseAmount}</p>
-  //       <p>Deposit Amount: $${depositAmount}</p>
-  //       <p>Buying Situation: ${buyingSituation}</p>
-  //       <p>First Home Buyer: ${firstHomeBuyer}</p>
-  //       <p>Property Status: ${propertyStatus}</p>
-  //       <p>Property Use: ${propertyUse}</p>
-  //       <p>Choosing a Lender: ${choosingALender ? choosingALender : 'skipped'}</p>
-  //       <p>Credit History: ${creditHistory}</p>
-  //       <!-- Add more loan details as needed -->
-
-  //       <h2 style="color: #666;">Applicant Information</h2>
-  //       <p>Name: ${name}</p>
-  //       <p>Email: ${email}</p>
-  //       <p>Phone: ${phone}</p>
-  //       <p>Address: ${address}</p>
-  //       <!-- Add more applicant information as needed -->
-  //     </div>
-  //   </div>
-  // `;
 
   const msg = {
     to,
