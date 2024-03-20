@@ -7,8 +7,6 @@ dotenv.config();
 sgMail.setApiKey(process.env.SENDGRID_API_KEY!);
 
 export const sendEmail = async (to: string, subject: string, data: any) => {
-  console.log({ data });
-
   let htmlContent: any;
 
   if (data.type === 'buy-home') {
@@ -69,6 +67,28 @@ export const sendEmail = async (to: string, subject: string, data: any) => {
       <!-- Add more applicant information as needed -->
     </div>
   </div>
+`;
+  } else if (data.type === 'contact') {
+    htmlContent = `<div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
+    <h1 style="color: #333; text-align: center;">Mortgage Application Details</h1>
+    <div style="background-color: #f9f9f9; padding: 20px; border-radius: 10px; position: relative;">
+      <div style="background-image: url('https://res.cloudinary.com/manutdmohit/image/upload/ECO_FINANCE_LOGO_ryqruv.png'); background-size: contain; background-repeat: no-repeat; position: absolute; top: 20px; right: 20px; width: 150px; height: 150px; margin:auto;"></div>
+
+      <h2 style="color: #666;">Contact Details</h2>
+      <p>What best describes your experience?<br />-${data.experience}</p>
+      <p>What best describes your situation?<br />- ${data.situation}</p>
+      <p>What is your Visa/Residency status in Australia?- <br />: ${data.visaResidencyStatus}</p>
+      <p>What is your potential purchase/transaction?<br />- ${data.potentialPurchase}</p>
+      <p>What is your primary occupation type<br />- ${data.primaryOccupation}</p>
+      <p>First Name<br />- ${data.firstName}</p>
+      <p>Last Name<br />- ${data.lastName}</p>
+      <p>Email<br />- ${data.email}</p>
+      <p>Phone Number<br />- ${data.phoneNumber}</p>
+      <p>Please select the state you are living<br />- ${data.state}</p>
+      <p>How did you hear about us?<br />- ${data.heardAboutUs}</p>
+      <p>Message<br />- ${data.message}</p>
+    </div>
+ </div>
 `;
   }
 

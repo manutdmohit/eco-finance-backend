@@ -20,15 +20,9 @@ app.get('/', (req: Request, res: Response) => {
 });
 
 app.post('/api/send-email', async (req, res) => {
-  // if (!to || !subject || !body) {
-  //   return res.status(400).send('Missing required fields in request body');
-  // }
-
-  if (!req.body.type || !req.body.name || !req.body.email) {
+  if (!req.body.type || !req.body.email) {
     return res.status(400).send('Missing required fields in request body');
   }
-
-  console.log({ body: req.body });
 
   const data = req.body;
 
