@@ -26,8 +26,17 @@ app.post('/api/send-email', async (req, res) => {
 
   const data = req.body;
 
+  const subject =
+    data.type === 'join'
+      ? 'A contact has subscribed successfully'
+      : data.type === 'refinance'
+      ? 'Refinance'
+      : data.type === 'buy-home'
+      ? 'Buy Home'
+      : 'Contact Details';
+
   try {
-    await sendEmail('saudmohit@gmail.com', 'test', data);
+    await sendEmail('saudmohit@gmail.com', subject, data);
     res.status(200).send('Email sent successfully');
   } catch (error) {
     res.status(500).send('Error sending email');
