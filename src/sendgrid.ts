@@ -136,9 +136,46 @@ export const sendEmail = async (
 
   try {
     await sgMail.send(msg);
+
     console.log('Email sent successfully');
   } catch (error: any) {
     console.error('Error sending email:', error);
     // Consider whether re-throwing is necessary
+  }
+};
+
+export const sendEmailToClient = async (
+  to: string,
+  subject: string,
+  data: EmailData
+): Promise<void> => {
+  const htmlContent = `
+    <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
+      <h1 style="color: #333; text-align: center;">Mortgage Application Details</h1>
+      <div style="background-color: #f9f9f9; padding: 20px; border-radius: 10px; position: relative;">
+        <a href="https://eco-finance-home-loans.vercel.app/"> <!-- Link added here -->
+          <img src="https://res.cloudinary.com/manutdmohit/image/upload/ECO_FINANCE_LOGO_ryqruv.png" alt="Eco Finance Logo" style="width: 150px; height: 150px; margin: auto; display: block;">
+        </a> <!-- Link ends here -->
+        <h4 style="color: #333;">Thank you for contacting us.</h4>
+        <p  style="color: #333;">We have received your mortgage application details and will review them shortly.</p>
+        <p  style="color: #333;">In the meantime, feel free to contact us if you have any questions or concerns.</p>
+        <p  style="color: #333;">Best regards,<br/>The Eco Finance Team</p>
+      </div>
+    </div>
+  `;
+
+  const msg: EmailMessage = {
+    to,
+    from: process.env.SENDER_EMAIL || 'themohitsaud@gmail.com', // Use a default or ensure this is set
+    subject,
+    html: htmlContent,
+  };
+
+  try {
+    await sgMail.send(msg);
+
+    console.log('Email sent successfully');
+  } catch (error: any) {
+    console.error('Error sending email:', error);
   }
 };

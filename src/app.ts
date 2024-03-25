@@ -4,7 +4,7 @@ dotenv.config();
 
 import express, { Request, Response } from 'express';
 import cors from 'cors';
-import { sendEmail } from './sendgrid';
+import { sendEmail, sendEmailToClient } from './sendgrid';
 
 const app = express();
 
@@ -35,8 +35,11 @@ app.post('/api/send-email', async (req, res) => {
       ? 'Buy Home'
       : 'Contact Details';
 
+  const recieverEmail: string = process.env.RECIEVER_EMAIL!;
+
   try {
-    await sendEmail('saudmohit@gmail.com', subject, data);
+    await sendEmail(recieverEmail, subject, data);
+    await sendEmailToClient(data.email, 'Thank you for contacting us', data);
     res.status(200).send('Email sent successfully');
   } catch (error) {
     res.status(500).send('Error sending email');
